@@ -8,7 +8,7 @@ const client = new Client({
 	],
 });
 require('dotenv').config()
-const { jbzdContent } = require("jbzd-scraper-lib"); // Assuming your scraper code is in jbzdScraper.js
+const { jbzdContent } = require("jbzd-scraper-lib");
 
 const TOKEN = process.env.TOKEN;
 const GUILD_ID = process.env.GUILD_ID;
@@ -21,7 +21,7 @@ const sentPhotoUrls = new Set();
 client.once('ready', () => {
   console.log(`Logged in as ${client.user.tag}`);
   checkAndSendPhotos();
-  setInterval(checkAndSendPhotos, 10 * 60 * 1000); // Check every 10 minutes
+  setInterval(checkAndSendPhotos, 10 * 60 * 1000);
 });
 
 async function checkAndSendPhotos() {
@@ -29,7 +29,7 @@ async function checkAndSendPhotos() {
     resetSentPhotoUrls();
   }
 
-  const latestPhotos = await jbzdContent('', 1); // Fetch latest photos without a specific category
+  const latestPhotos = await jbzdContent('', 1);
   if (latestPhotos.length > 0) {
     const channel = client.guilds.cache.get(GUILD_ID)?.channels.cache.get(CHANNEL_ID);
     if (channel) {
@@ -37,7 +37,7 @@ async function checkAndSendPhotos() {
         const imageUrl = photo.elements.find((element) => element.type === 'image')?.src;
         if (imageUrl && !sentPhotoUrls.has(imageUrl)) {
           channel.send(imageUrl);
-          sentPhotoUrls.add(imageUrl); // Add the URL to the set of sent photos
+          sentPhotoUrls.add(imageUrl);
         }
       }
     }
