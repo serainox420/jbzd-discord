@@ -45,7 +45,7 @@ async function checkAndSendPhotos() {
 }
 
 function resetSentPhotoUrls() {
-  sentPhotoUrls.clear(); // Clear the set of sent photo URLs
+  sentPhotoUrls.clear();
   console.log('Resetting sent photo URLs');
 }
 
