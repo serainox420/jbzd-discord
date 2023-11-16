@@ -1,10 +1,18 @@
-const Discord = require('discord.js');
-const client = new Discord.Client();
-const { jbzdContent } = require('./jbzdScraper'); // Assuming your scraper code is in jbzdScraper.js
+const { Client, Events, GatewayIntentBits } = require('discord.js');
+const client = new Client({
+	intents: [
+		GatewayIntentBits.Guilds,
+		GatewayIntentBits.GuildMessages,
+		GatewayIntentBits.MessageContent,
+		GatewayIntentBits.GuildMembers,
+	],
+});
+require('dotenv').config()
+const { jbzdContent } = require("jbzd-scraper-lib"); // Assuming your scraper code is in jbzdScraper.js
 
-const TOKEN = 'YOUR_BOT_TOKEN';
-const GUILD_ID = 'YOUR_GUILD_ID';
-const CHANNEL_ID = 'YOUR_CHANNEL_ID';
+const TOKEN = process.env.TOKEN;
+const GUILD_ID = process.env.GUILD_ID;
+const CHANNEL_ID = process.env.CHANNEL_ID;
 const MAX_URLS = 10;
 
 // Maintain a set to store sent photo URLs
